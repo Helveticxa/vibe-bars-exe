@@ -8,7 +8,7 @@ Untuk Windows 11 (dan Windows 10 64-bit). Padanan [Vibe Island](https://vibeisla
 
 ## Unduh
 
-### **[Vibe-Bars-Setup.exe](https://github.com/Helveticxa/vibe-bars-exe/raw/main/Vibe-Bars-Setup.exe)** — 4,14 MB
+### **[Vibe-Bars-Setup.exe](https://github.com/Helveticxa/vibe-bars-exe/releases/latest/download/Vibe-Bars-Setup.exe)** — 4,14 MB
 
 Klik, jalankan, selesai. Pemasangan per-pengguna, **tidak perlu hak administrator**.
 
@@ -16,6 +16,13 @@ Klik, jalankan, selesai. Pemasangan per-pengguna, **tidak perlu hak administrato
 SHA-256  785A4BBCEA1BB164BA6698776ED217EACE4A91F40EB08785E915BD47C57C67EF
 Versi    0.2.0
 ```
+
+Daftar lengkap perubahan tiap versi ada di
+**[halaman rilis](https://github.com/Helveticxa/vibe-bars-exe/releases)**.
+
+> **Sudah memakai Vibe Bars?** Tidak perlu mengunduh apa pun dan tidak perlu mencopot
+> yang lama. Buka **Pengaturan → Pembaruan** di dalam aplikasi: versi baru terdeteksi
+> sendiri, lengkap dengan daftar perubahannya, lalu terpasang dengan satu klik.
 
 Verifikasi berkasnya sebelum menjalankan (opsional tapi disarankan):
 
@@ -71,6 +78,12 @@ itu benar-benar hidup lagi, ia muncul sendiri tanpa kamu perlu melakukan apa pun
 Tidak ada yang benar-benar terhapus: ada baris "N disembunyikan · tampilkan" untuk
 membatalkannya.
 
+**Memperbarui dirinya sendiri.** Tidak perlu mencopot lalu memasang ulang. Pengaturan →
+Pembaruan menunjukkan versi yang tersedia beserta daftar perubahannya, mengunduh, lalu
+memasang. Setiap paket **wajib lolos verifikasi tandatangan** sebelum dipasang — paket
+yang tidak ditandatangani kunci kami ditolak, jadi menguasai saluran unduh saja tidak
+cukup untuk menyusupkan sesuatu ke komputermu.
+
 **Tidak pernah merebut fokus.** Bar-nya melayang di atas segalanya tapi tidak pernah
 mengambil keyboard, tidak muncul di taskbar, tidak muncul di Alt-Tab. Di luar area
 bar, klik tembus ke aplikasi di bawahnya seolah bar-nya tidak ada.
@@ -82,15 +95,24 @@ intinya memakai 26 MB.
 
 ## Privasi — singkat, dan bisa diperiksa
 
-- **Tidak ada akun, tidak ada cloud, tidak ada telemetri.** Semua data dibaca dari
-  berkas transcript yang sudah ada di komputermu.
-- **Satu-satunya fitur yang memakai jaringan** adalah kuota Claude Code, dan itu
-  **default mati**. Kalau kamu menyalakannya, ia memanggil endpoint resmi Anthropic
-  memakai token yang sudah dipakai Claude Code sendiri — tujuan yang sama yang sudah
-  dihubungi CLI-mu setiap hari.
-- Token dibaca saat panggilan dilakukan lalu dibuang. **Tidak pernah** disalin ke disk,
-  ke log, atau ke pengaturan aplikasi. Vibe Bars **tidak pernah menulis** ke berkas
-  kredensialmu dan tidak pernah menyegarkan tokenmu.
+**Tidak ada akun, tidak ada cloud, tidak ada telemetri.** Semua data sesi dibaca dari
+berkas transcript yang sudah ada di komputermu.
+
+Ada tepat **dua** hal yang menyentuh jaringan, dan keduanya bisa dimatikan:
+
+| | Default | Yang dikirim | Ke mana |
+|---|---|---|---|
+| Pemeriksaan pembaruan | **menyala** | tidak ada — hanya permintaan `GET` biasa, lalu nomor versi dibaca dari balasannya | halaman rilis repositori ini di GitHub |
+| Kuota Claude Code 5H/7D | **mati** | token OAuth yang sudah dipakai Claude Code sendiri | `api.anthropic.com`, tujuan yang sama yang dihubungi CLI-mu setiap hari |
+
+Bedanya default keduanya bukan soal "jaringan atau bukan", tapi soal **apa yang ikut
+terkirim**. Pemeriksaan pembaruan tidak membawa apa pun tentangmu — tidak ada pengenal
+perangkat, tidak ada data sesi, tidak ada kredensial. Kuota Claude memakai tokenmu, dan
+itu kelas yang berbeda, jadi ia tetap harus kamu pilih sendiri.
+
+Tokennya dibaca saat panggilan dilakukan lalu dibuang. **Tidak pernah** disalin ke disk,
+ke log, atau ke pengaturan aplikasi. Vibe Bars **tidak pernah menulis** ke berkas
+kredensialmu dan tidak pernah menyegarkan tokenmu.
 
 ---
 
