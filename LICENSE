@@ -1,0 +1,39 @@
+Vibe Bars — Ketentuan Pemakaian (Beta)
+Copyright (c) 2026 Fata Afifuddin. Hak cipta dilindungi.
+
+Repositori ini mendistribusikan installer Vibe Bars dalam bentuk biner. Kode
+sumbernya tidak disertakan dan tidak dipublikasikan.
+
+DIIZINKAN
+- Mengunduh, memasang, dan memakai Vibe Bars di komputer milikmu sendiri, untuk
+  keperluan pribadi maupun pekerjaan, tanpa biaya selama masa beta.
+- Membagikan TAUTAN ke repositori ini kepada siapa pun.
+
+TIDAK DIIZINKAN
+- Mendistribusikan ulang berkas installernya, termasuk mengunggahnya ke tempat
+  lain atau membundelnya dengan produk lain.
+- Menjual, menyewakan, atau mengenakan biaya atas perangkat lunak ini.
+- Melakukan rekayasa balik, dekompilasi, atau membongkar biner, kecuali sejauh
+  yang tidak dapat dikesampingkan oleh hukum yang berlaku.
+- Menghapus atau mengubah pemberitahuan hak cipta.
+
+MASA BETA
+Vibe Bars sedang dalam pengembangan aktif. Ketentuan pemakaian versi berikutnya
+dapat berbeda, termasuk kemungkinan berbayar. Perubahan tersebut tidak berlaku
+surut terhadap versi yang sudah kamu unduh.
+
+TANPA JAMINAN
+PERANGKAT LUNAK INI DISEDIAKAN "APA ADANYA", TANPA JAMINAN DALAM BENTUK APA PUN,
+TERSURAT MAUPUN TERSIRAT, TERMASUK NAMUN TIDAK TERBATAS PADA JAMINAN
+KELAYAKAN JUAL, KESESUAIAN UNTUK TUJUAN TERTENTU, DAN TIDAK ADANYA PELANGGARAN.
+DALAM KEADAAN APA PUN PEMEGANG HAK CIPTA TIDAK BERTANGGUNG JAWAB ATAS KLAIM,
+KERUSAKAN, ATAU KEWAJIBAN LAIN YANG TIMBUL DARI PENGGUNAAN PERANGKAT LUNAK INI.
+
+CATATAN TENTANG BERKAS KONFIGURASI
+Vibe Bars dapat menambahkan entri hook ke berkas konfigurasi Claude Code milikmu,
+dan hanya setelah kamu menyetujuinya lewat layar sambutan atau Pengaturan. Entri
+tersebut ditambahkan secara merge, berkas aslinya di-backup, dan dicabut kembali
+saat aplikasi dicopot. Kamu tetap bertanggung jawab menyimpan cadangan
+konfigurasimu sendiri.
+
+Komponen pihak ketiga di dalam biner tetap tunduk pada lisensinya masing-masing.
