@@ -13,8 +13,8 @@ Untuk Windows 11 (dan Windows 10 64-bit). Padanan [Vibe Island](https://vibeisla
 Klik, jalankan, selesai. Pemasangan per-pengguna, **tidak perlu hak administrator**.
 
 ```
-SHA-256  5DF2118F19A7BBDFD6DD8D09BD4F4BE7DFBAEC73B5501D7B5E3F296B01A4FF34
-Versi    0.3.0
+SHA-256  096BF41792FEFA3D7F93F8628ED6151E9D7E372304D39F3323F4770EEF661078
+Versi    0.4.0
 ```
 
 Daftar lengkap perubahan tiap versi ada di
