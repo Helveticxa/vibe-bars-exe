@@ -73,6 +73,39 @@ jobs:
           } >> CATATAN.md
           echo "versi=$ver" >> "$GITHUB_OUTPUT"
 
+      # Rilis lama dibuang dulu supaya yang baru benar-benar dibuat ulang.
+      #
+      # Ini bukan kehati-hatian berlebihan, melainkan perbaikan atas kegagalan
+      # nyata: `softprops/action-gh-release` MENGUNGGAH ULANG aset ke rilis yang
+      # sudah ada, tapi **tidak menyentuh badan rilisnya**. Akibatnya halaman
+      # rilis yang terlanjur terbit dengan teks salah tidak bisa diperbaiki
+      # dengan menjalankan ulang workflow — dan gagalnya senyap, karena
+      # workflow tetap melapor sukses.
+      #
+      # Dibuktikan begini: teks diagnostik ditambahkan ke pesan cadangan, tag
+      # dipindah ke commit yang benar, workflow jalan dan sukses — badan rilis
+      # tidak berubah satu karakter pun (tetap 635 byte, tanpa teks baru itu).
+      #
+      # `gh` sudah terpasang di runner dan `GITHUB_TOKEN` sudah punya izin
+      # tulis, jadi tidak ada kredensial pribadi yang perlu dititipkan ke mana
+      # pun. Tag sengaja DIPERTAHANKAN (`gh release delete` tidak menghapus tag
+      # tanpa `--cleanup-tag`) supaya riwayat versinya utuh.
+      #
+      # Efek samping yang diterima: selama beberapa detik antara penghapusan
+      # dan pembuatan ulang, URL unduhan menjadi 404. Updater di dalam aplikasi
+      # hanya akan menganggap pemeriksaan gagal dan mencoba lagi nanti.
+      - name: Hapus rilis lama kalau ada
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            gh release delete "$GITHUB_REF_NAME" --yes
+            echo "rilis lama $GITHUB_REF_NAME dihapus; tag dipertahankan"
+          else
+            echo "belum ada rilis $GITHUB_REF_NAME, tidak ada yang perlu dihapus"
+          fi
+
       - name: Terbitkan
         uses: softprops/action-gh-release@v2
         with:
