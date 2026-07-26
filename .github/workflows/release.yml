@@ -43,10 +43,17 @@ jobs:
           # CHANGELOG dan menaruhnya di sana untuk dibaca updater di dalam
           # aplikasi. Memakainya di sini membuat halaman rilis dan panel
           # Pembaruan menampilkan kalimat yang persis sama, dari satu sumber.
-          if [ -f latest.json ] && [ "$(jq -r '.notes // "" | length' latest.json)" -gt 0 ]; then
-            jq -r '.notes' latest.json > CATATAN.md
+          # Diagnostik ditulis ke log DAN ikut menentukan cabang, supaya kalau
+          # gagal lagi penyebabnya terbaca tanpa menebak. Pernah gagal senyap:
+          # workflow melapor sukses sementara badan rilis tetap memakai teks
+          # cadangan, dan tidak ada satu pun keluaran yang menjelaskan kenapa.
+          if [ -f latest.json ]; then ada=ya; else ada=tidak; fi
+          len=$(python3 -c "import json,sys;print(len(json.load(open('latest.json',encoding='utf-8')).get('notes') or ''))" 2>/dev/null || echo 0)
+          echo "diagnostik: latest.json=$ada panjang_notes=$len"
+          if [ "$ada" = "ya" ] && [ "$len" -gt 0 ]; then
+            python3 -c "import json,io;io.open('CATATAN.md','w',encoding='utf-8').write(json.load(open('latest.json',encoding='utf-8'))['notes'])"
           else
-            echo "Catatan perubahan belum ditulis untuk versi $ver." > CATATAN.md
+            echo "Catatan perubahan belum ditulis untuk versi $ver. (latest.json=$ada, panjang=$len)" > CATATAN.md
           fi
           {
             echo ""
