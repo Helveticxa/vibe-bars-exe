@@ -30,15 +30,21 @@ jobs:
         shell: bash
         run: |
           ver="${GITHUB_REF_NAME#v}"
-          # Ambil satu bagian versi dari CHANGELOG: dari "## <ver>" sampai
-          # "## " berikutnya. Kalau tidak ketemu, JANGAN mengarang isi —
-          # tulis rujukan apa adanya supaya ketahuan dan bisa diperbaiki.
-          if [ -f CHANGELOG.md ] && grep -q "^## $ver" CHANGELOG.md; then
-            awk -v v="## $ver" '
-              $0 ~ "^"v {f=1; next}
-              f && /^## / {exit}
-              f {print}
-            ' CHANGELOG.md > CATATAN.md
+          # Catatan diambil dari `latest.json`, BUKAN dari CHANGELOG.md.
+          #
+          # Alasannya konkret: workflow ini berjalan di repo PUBLIK, dan repo
+          # itu tidak punya CHANGELOG.md — berkas itu tinggal di repo kode.
+          # Cabang fallback karena itu menyala di setiap rilis, dan halaman
+          # rilis 0.2.0 sampai 0.4.0 sempat terbit dengan tulisan "catatan
+          # perubahan belum ditulis" padahal catatannya ada.
+          #
+          # `latest.json` adalah sumber yang benar karena ia SUDAH memuat teks
+          # yang sama: `scripts/release.ps1` mengambil bagian versi dari
+          # CHANGELOG dan menaruhnya di sana untuk dibaca updater di dalam
+          # aplikasi. Memakainya di sini membuat halaman rilis dan panel
+          # Pembaruan menampilkan kalimat yang persis sama, dari satu sumber.
+          if [ -f latest.json ] && [ "$(jq -r '.notes // "" | length' latest.json)" -gt 0 ]; then
+            jq -r '.notes' latest.json > CATATAN.md
           else
             echo "Catatan perubahan belum ditulis untuk versi $ver." > CATATAN.md
           fi
