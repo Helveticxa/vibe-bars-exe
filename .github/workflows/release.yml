@@ -1,0 +1,73 @@
+# Catatan: berkas ini ADA DI REPO KODE hanya sebagai sumber kebenaran yang
+# ikut ter-review. Yang benar-benar berjalan adalah salinannya di repo PUBLIK
+# `vibe-bars-exe` — `scripts/release.ps1` menyalinnya ke sana.
+#
+# Alurnya: rilis dibangun dan diverifikasi di mesin pengembang (gerbang rilis
+# butuh sesi desktop untuk membuktikan jendelanya benar-benar muncul), lalu
+# skrip mendorong aset + tag ke repo publik. Tag itu yang memicu workflow ini,
+# dan workflow-lah yang membuat GitHub Release beserta catatan perubahannya.
+#
+# Kenapa lewat tag, bukan lewat API dari mesin lokal: `GITHUB_TOKEN` sudah
+# tersedia sendiri di dalam Actions, jadi tidak perlu membuat, menyimpan, atau
+# merotasi personal access token di mana pun.
+name: Rilis
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  rilis:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Siapkan catatan rilis
+        id: catatan
+        shell: bash
+        run: |
+          ver="${GITHUB_REF_NAME#v}"
+          # Ambil satu bagian versi dari CHANGELOG: dari "## <ver>" sampai
+          # "## " berikutnya. Kalau tidak ketemu, JANGAN mengarang isi —
+          # tulis rujukan apa adanya supaya ketahuan dan bisa diperbaiki.
+          if [ -f CHANGELOG.md ] && grep -q "^## $ver" CHANGELOG.md; then
+            awk -v v="## $ver" '
+              $0 ~ "^"v {f=1; next}
+              f && /^## / {exit}
+              f {print}
+            ' CHANGELOG.md > CATATAN.md
+          else
+            echo "Catatan perubahan belum ditulis untuk versi $ver." > CATATAN.md
+          fi
+          {
+            echo ""
+            echo "---"
+            echo ""
+            echo "### Unduh"
+            echo ""
+            echo "**[Vibe-Bars-Setup.exe](https://github.com/${GITHUB_REPOSITORY}/releases/download/${GITHUB_REF_NAME}/Vibe-Bars-Setup.exe)** — pemasangan per-pengguna, tanpa hak administrator."
+            echo ""
+            echo '```'
+            echo "SHA-256  $(sha256sum Vibe-Bars-Setup.exe | cut -d' ' -f1 | tr 'a-f' 'A-F')"
+            echo '```'
+            echo ""
+            echo "Sudah memakai Vibe Bars? Tidak perlu mengunduh apa pun — buka **Pengaturan → Pembaruan** di dalam aplikasi."
+            echo ""
+            echo "Installer belum ditandatangani secara digital, jadi Windows SmartScreen akan menampilkan peringatan. Klik **More info** lalu **Run anyway**. Cocokkan checksum di atas kalau ingin memastikan berkasnya utuh."
+          } >> CATATAN.md
+          echo "versi=$ver" >> "$GITHUB_OUTPUT"
+
+      - name: Terbitkan
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Vibe Bars ${{ steps.catatan.outputs.versi }}
+          body_path: CATATAN.md
+          # latest.json WAJIB ikut: itulah yang dibaca updater di dalam
+          # aplikasi lewat URL .../releases/latest/download/latest.json
+          files: |
+            Vibe-Bars-Setup.exe
+            Vibe-Bars-Setup.exe.sha256
+            latest.json
