@@ -1,6 +1,6 @@
 # Vibe Bars
 
-**Satu bar melayang di tengah-atas layar yang menampilkan status semua sesi AI coding agent-mu — dan membiarkanmu menjawabnya tanpa mencari-cari terminal.**
+**Satu bar melayang yang menampilkan status semua sesi AI coding agent-mu — dan membiarkanmu menjawabnya tanpa mencari-cari terminal.**
 
 Untuk Windows 11 (dan Windows 10 64-bit). Padanan [Vibe Island](https://vibeisland.app/) yang selama ini hanya ada di macOS.
 
@@ -58,6 +58,18 @@ kalau sedang diminimize atau tertimbun jendela lain.
 
 **Kuota, bukan tebakan.** Sisa kuota Codex dibaca dari berkas lokal, tanpa jaringan.
 Kuota Claude Code 5 jam dan 7 hari tersedia sebagai opsi (default mati — lihat Privasi).
+
+**Atas atau bawah, terserah kamu.** Bar bisa menempel di tepi atas layar (bawaan) atau
+tepi bawah; panelnya membuka menjauhi tepi itu. Penempatannya mengikuti *work area*
+Windows, jadi ia tidak pernah bertabrakan dengan taskbar di sisi mana pun ia dipasang.
+Punya dua monitor? Bar bisa dikunci ke salah satunya supaya tidak ikut berpindah
+mengikuti kursor.
+
+**Singkirkan sesi yang tidak kamu pedulikan.** Setiap baris punya tombol ✕. Sesi
+percobaan yang terminalnya sudah kamu tutup hilang untuk selamanya — tapi kalau sesi
+itu benar-benar hidup lagi, ia muncul sendiri tanpa kamu perlu melakukan apa pun.
+Tidak ada yang benar-benar terhapus: ada baris "N disembunyikan · tampilkan" untuk
+membatalkannya.
 
 **Tidak pernah merebut fokus.** Bar-nya melayang di atas segalanya tapi tidak pernah
 mengambil keyboard, tidak muncul di taskbar, tidak muncul di Alt-Tab. Di luar area
