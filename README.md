@@ -8,13 +8,13 @@ Untuk Windows 11 (dan Windows 10 64-bit). Padanan [Vibe Island](https://vibeisla
 
 ## Unduh
 
-### **[Vibe-Bars-Setup.exe](https://github.com/Helveticxa/vibe-bars-exe/releases/latest/download/Vibe-Bars-Setup.exe)** — 4,43 MB
+### **[Vibe-Bars-Setup.exe](https://github.com/Helveticxa/vibe-bars-exe/releases/latest/download/Vibe-Bars-Setup.exe)** — 4,48 MB
 
 Klik, jalankan, selesai. Pemasangan per-pengguna, **tidak perlu hak administrator**.
 
 ```
-SHA-256  D4F5F716173EC2833A13A264520534FB1072896F0F8F34500DC46E71D205E974
-Versi    0.7.0
+SHA-256  568DA1B59B8EAA34EC96286742FE102AE50D6D0F27BDC5A80BAB74996E2B525A
+Versi    0.8.0
 ```
 
 Daftar lengkap perubahan tiap versi ada di
